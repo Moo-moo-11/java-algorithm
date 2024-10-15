@@ -32,6 +32,6 @@ class Solution {
         
         list.sort((o1, o2) -> Double.compare(map.get(o2), map.get(o1)));
 
-        return list.stream().mapToInt(i -> i).toArray();
+        return list.stream().mapToInt(Integer::intValue).toArray();
     }
 }
