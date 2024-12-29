@@ -9,15 +9,14 @@ class Solution {
         }
 
         for (String comp : completion) {
-            map.put(comp, map.get(comp) - 1);
-        }
-
-        for (String key : map.keySet()) {
-            if (map.get(key) > 0) {
-                return key;
+            int left = map.get(comp);
+            if (left == 1) {
+                map.remove(comp);
+            } else {
+                map.put(comp, left - 1);
             }
         }
         
-        return "";
+        return map.entrySet().iterator().next().getKey();
     }
 }
