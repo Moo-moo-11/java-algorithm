@@ -1,14 +1,5 @@
 class Solution {
-
-    public void dfs(List<String> answer, Map<String, PriorityQueue<String>> fromToMap, String from) {
-        while (fromToMap.containsKey(from) && !fromToMap.get(from).isEmpty()) {
-            dfs(answer, fromToMap, fromToMap.get(from).poll());
-        }
-
-        answer.add(0, from);
-    }
     public List<String> findItinerary(List<List<String>> tickets) {
-        List<String> answer = new LinkedList<>();
         Map<String, PriorityQueue<String>> fromToMap = new HashMap<>();
 
         for (List<String> ticket : tickets) {
@@ -16,8 +7,19 @@ class Solution {
             fromToMap.get(ticket.get(0)).add(ticket.get(1));
         }
 
-        dfs(answer, fromToMap, "JFK");
+        List<String> answer = new LinkedList<>();
+        Deque<String> stack = new ArrayDeque<>();
 
+        stack.push("JFK");
+        
+        while (!stack.isEmpty()) {
+            while (fromToMap.containsKey(stack.getFirst()) && !fromToMap.get(stack.getFirst()).isEmpty()) {
+                stack.push(fromToMap.get(stack.getFirst()).poll());
+            }
+
+            answer.add(0, stack.pop());
+        }
+        
         return answer;
     }
 }
